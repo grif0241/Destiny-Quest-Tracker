@@ -4,22 +4,22 @@ import AbilityComboBox from './AbilityComboBox';
 import ItemComboBox from './ItemComboBox';
 import Autocomplete from '@mui/material/Autocomplete';
 import { CharactersContext, CharactersDispatchContext } from '../contexts/CharactersContext';
-import {Divider} from '@mui/material';
+import { Divider } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import FullScreenLoading from './FullScreenLoading';
 import { capitalizeString } from '../util';
 
-function EditCharacterForm( { careers, paths, items, handleClose } ) {
+function EditCharacterForm({ careers, paths, items, handleClose }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const characters = useContext(CharactersContext);
   const character = characters.find((char) => char.id === id);
-  console.log(character);
+  console.log(careers);
 
   const dispatch = React.useContext(CharactersDispatchContext);
   const { chest, cloak, feet, gloves, head, leftHand, mainHand, necklace, ring, talisman } = items;
-  const {career, path, name, moneyPouch, stats} = character;
+  const { career, path, name, moneyPouch, stats } = character;
   const [formData, setFormData] = useState(character);
   const [loading, setLoading] = useState(false);
 
@@ -37,7 +37,7 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
   };
 
   const handleHealthChange = (ev, newValue) => {
-    const { name, value  } = ev.target;
+    const { name, value } = ev.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       stats: {
@@ -50,7 +50,7 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
   // use for regular text content?
   const handleChange = (e) => {
     console.log(e.target.name)
-    const { name, value  } = e.target;
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
@@ -64,23 +64,23 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
 
     });
     setTimeout(() => {
-    // navigate(`/characters/${character.id}`);
-    handleClose();
+      // navigate(`/characters/${character.id}`);
+      handleClose();
 
-    setLoading(false);
-  }, 200);
+      setLoading(false);
+    }, 200);
   };
 
   return (
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ display: 'flex', flexDirection: 'column', gap: 2, width:'100%'}}
+      sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
     >
       {loading && (<FullScreenLoading />)}
 
       {/* personal */}
-      <Grid sx={{marginTop:{xs: 12, md: 0}}} container spacing={2}>
+      <Grid sx={{ marginTop: { xs: 12, md: 0 } }} container spacing={2}>
         <Grid item xs={12}>
           <Typography>Personal</Typography>
         </Grid>
@@ -132,7 +132,7 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
           </FormControl>
         </Grid>
         <Grid item xs={6} sm={3}>
-          <TextField 
+          <TextField
             type='number'
             name='health'
             label="Health"
@@ -146,7 +146,7 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
         </Grid>
 
         <Grid item xs={6} sm={3}>
-          <TextField 
+          <TextField
             type='number'
             name='moneyPouch'
             label="Gold"
@@ -161,7 +161,7 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
       <Divider />
 
       {/* equipment */}
-      <Grid sx={{marginTop:0}} container spacing={2}>
+      <Grid sx={{ marginTop: 0 }} container spacing={2}>
         <Grid item xs={12}>
           <Typography>Equipment</Typography>
         </Grid>
@@ -247,20 +247,20 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
               <TextField {...params} label="Left hand" name="leftHand" />
             )}
             sx={{ marginBottom: '16px' }}
-            />
+          />
         </Grid>
         <Grid item xs={6} sm={3}>
-            <Autocomplete
-              disablePortal
-              id="talisman"
-              options={talisman} // Assuming items.talisman is an array of options
-              getOptionLabel={(option) => option.name} // Display the name of each option
-              value={formData.equipment.talisman} // Default value
-              onChange={handleEquipmentChange('talisman')}
-              renderInput={(params) => (
-                <TextField {...params} label="Talisman" name="talisman" />
-              )}
-              sx={{ marginBottom: '16px' }}
+          <Autocomplete
+            disablePortal
+            id="talisman"
+            options={talisman} // Assuming items.talisman is an array of options
+            getOptionLabel={(option) => option.name} // Display the name of each option
+            value={formData.equipment.talisman} // Default value
+            onChange={handleEquipmentChange('talisman')}
+            renderInput={(params) => (
+              <TextField {...params} label="Talisman" name="talisman" />
+            )}
+            sx={{ marginBottom: '16px' }}
           />
         </Grid>
         <Grid item xs={6} sm={3}>
@@ -275,7 +275,7 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
               <TextField {...params} label="Feet" name="feet" />
             )}
             sx={{ marginBottom: '16px' }}
-            />
+          />
         </Grid>
         <Grid item xs={6} sm={3}>
           <Autocomplete
@@ -303,7 +303,7 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
               <TextField {...params} label="Ring 1" name="ring1" />
             )}
             sx={{ marginBottom: '16px' }}
-            />
+          />
         </Grid>
         <Grid item xs={6} sm={3}>
           <Autocomplete
@@ -317,13 +317,13 @@ function EditCharacterForm( { careers, paths, items, handleClose } ) {
               <TextField {...params} label="Ring 2" name="ring2" />
             )}
             sx={{ marginBottom: '16px' }}
-            />
+          />
         </Grid>
       </Grid>
       <Divider />
 
       {/* backpack */}
-      <Grid sx={{marginTop:0}} container spacing={2}>
+      <Grid sx={{ marginTop: 0 }} container spacing={2}>
         <Grid item xs={12}>
           <Typography>Backpack</Typography>
         </Grid>

@@ -18,7 +18,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export default function AbilityModal({ open, targetAbility, handleClose }) {
+export default function ItemModal({ open, targetItem, handleClose }) {
 
   return (
     <React.Fragment>
@@ -28,7 +28,7 @@ export default function AbilityModal({ open, targetAbility, handleClose }) {
         open={open}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          {targetAbility.name}
+          {targetItem.name}
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -44,12 +44,11 @@ export default function AbilityModal({ open, targetAbility, handleClose }) {
         </IconButton>
         <DialogContent dividers>
           <Typography gutterBottom>
-            {targetAbility.description}
+            This item is found in entry number: {targetItem.entryNo}
           </Typography>
           <Typography gutterBottom>
-            {targetAbility.type}
+            From: {targetItem.locationEnemy}
           </Typography>
-
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

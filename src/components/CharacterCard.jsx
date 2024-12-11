@@ -11,60 +11,59 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CharactersContext, CharactersDispatchContext } from '../contexts/CharactersContext';
 import { capitalizeString } from '../util';
 
-export default function CharacterCard({character}) {
+export default function CharacterCard({ character }) {
   const navigate = useNavigate();
 
-    // TODO clean
-    const characterImages = {
-      villager,
-      archer,
-      mage,
-      warrior
-    };
-  
-    const getCharacterImage = (job) => {
-      switch(job) {
-        case "villager" :
-          return characterImages.villager;
-        case "warrior" :
-          return characterImages.warrior;
-        case "archer" :
-          return characterImages.archer;
-        case "mage" :
-          return characterImages.mage;
-      }
+  // TODO clean
+  const characterImages = {
+    villager,
+    archer,
+    mage,
+    warrior
+  };
+
+  const getCharacterImage = (job) => {
+    switch (job) {
+      case "villager":
+        return characterImages.villager;
+      case "warrior":
+        return characterImages.warrior;
+      case "archer":
+        return characterImages.archer;
+      case "mage":
+        return characterImages.mage;
     }
+  }
 
   const handleNavigate = () => {
-    navigate('/characters'); // Replace '/target-page' with your target path
+    navigate('/characters');
   };
 
   const dispatch = React.useContext(CharactersDispatchContext);
   return (
-    <Card 
-      sx={{backgroundColor:'lightGreen', marginBottom:2, paddingX: 5, minWidth: 275, display: 'flex', flexDirection:'row', justifyContent: 'flex-start', alignContent:'center', alignItems:'center' }}
+    <Card
+      sx={{ backgroundColor: 'lightGreen', marginBottom: 2, paddingX: 5, minWidth: 275, display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}
       onClick={() => console.log('open character dialogue')}
-      >
-      <img 
-        width="50px" 
-        height="50px" 
-        src={getCharacterImage(character.path)} 
-        alt="Villager" 
-        style={{ 
-          borderRadius: '50%', 
+    >
+      <img
+        width="50px"
+        height="50px"
+        src={getCharacterImage(character.path)}
+        alt="Villager"
+        style={{
+          borderRadius: '50%',
           objectFit: 'cover'
-        }} 
+        }}
       />
       <Link
         to={`/characters/${character.id}`}
-        style={{ textDecoration: 'none', color: 'inherit' }} // Remove default Link styling
-  
+        style={{ textDecoration: 'none', color: 'inherit' }}
       >
-        <CardContent sx={{ display:'flex', flexDirection:'column', justifyContent: 'space-around'}}>
+        <CardContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
           <Typography variant="h4" component="div" sx={{ display: 'flex', alignItems: 'center' }}>
             {character?.name}
           </Typography>
-          <Typography sx={{ }} color="text.secondary">
+          <Typography sx={{}} color="text.secondary">
             {capitalizeString(character?.path)}
           </Typography>
         </CardContent>
@@ -72,7 +71,7 @@ export default function CharacterCard({character}) {
       <button onClick={
         () => {
           dispatch({
-            type:'deleted',
+            type: 'deleted',
             character
           })
           // handleNavigate()

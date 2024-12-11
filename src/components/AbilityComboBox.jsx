@@ -3,8 +3,8 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import resources from '../assets/destiny-quest-resources.json';
 
-export default function AbilityComboBox( {handleQuery}) {
-  const {abilities} = resources.legionOfShadow;  
+export default function AbilityComboBox({ handleQuery }) {
+  const { abilities } = resources.legionOfShadow;
 
   return (
     <Autocomplete
