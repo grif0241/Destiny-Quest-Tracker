@@ -5,10 +5,10 @@ import Nav from '../components/Nav';
 import { Box } from '@mui/material';
 import resources from '../assets/destiny-quest-resources.json';
 import villager from '../assets/icons/villager.png';
-import rogue from '../assets/icons/rogue.png';
 import mage from '../assets/icons/mage.png';
 import battle from '../assets/icons/battle.png';
 import diceCube from '../assets/icons/dice-cube.png';
+import archer from '../assets/icons/archer.png';
 import warrior from '../assets/icons/warrior.png';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -39,20 +39,20 @@ export default function CharacterDetail() {
   // TODO clean
   const characterImages = {
     villager,
-    rogue,
+    archer,
     mage,
     warrior
   };
 
   const getCharacterImage = (job) => {
-    switch(job) {
-      case "villager" :
+    switch (job) {
+      case "villager":
         return characterImages.villager;
-      case "warrior" :
+      case "warrior":
         return characterImages.warrior;
-      case "rogue" :
-        return characterImages.rogue;
-      case "mage" :
+      case "archer":
+        return characterImages.archer;
+      case "mage":
         return characterImages.mage;
     }
   }
@@ -84,10 +84,10 @@ export default function CharacterDetail() {
         }}
       >
 
-        <h1 style={{color: 'white',}}>{name}, the {capitalizeString(path)}</h1>
+        <h1 style={{ color: 'white', }}>{name}, the {capitalizeString(path)}</h1>
         {/* dynamically render career */}
-        {career && (<h2 style={{color: 'white',}}>{capitalizeString(career)}</h2>)}
-    
+        {career && (<h2 style={{ color: 'white', }}>{capitalizeString(career)}</h2>)}
+
         {/* stats */}
         <Elevation character={character} />
 
@@ -111,7 +111,7 @@ export default function CharacterDetail() {
             src={getCharacterImage(character.path)}
             alt="Path Icon"
             style={{
-              width: '100%', 
+              width: '100%',
               height: '100%',
               borderRadius: '50%',
               objectFit: 'cover',
@@ -131,7 +131,7 @@ export default function CharacterDetail() {
             padding: 0,
             marginBottom: '20px',
             background: 'none',
-            backgroundColor:'grey',
+            backgroundColor: 'grey',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
@@ -167,7 +167,7 @@ export default function CharacterDetail() {
                       sx={{ borderBottom: '1px solid #ddd' }}
                       onClick={() => {
                         console.log(value);
-                    }}
+                      }}
                     >
                       <ListItemText
                         primary={value.name}
@@ -203,10 +203,10 @@ const Item = styled(Paper)(({ theme }) => ({
   width: '80%',
   // height: '100%',
   lineHeight: '60px',
-  padding:10,
+  padding: 10,
 }));
 
-function Elevation({character}) {
+function Elevation({ character }) {
   const calculatedStats = calculateStats(character);
   const { stats } = character;
   console.log(stats);
@@ -220,46 +220,46 @@ function Elevation({character}) {
               <Typography color="text.secondary">
                 {key.toLocaleUpperCase()}
               </Typography>
-              <Typography variant="h4" component="div" sx={{ display: 'flex', alignItems: 'center', justifyContent:'center' }}>
+              <Typography variant="h4" component="div" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {value}
               </Typography>
             </>
           </Item>
         </Grid>
       ))}
-      
+
       {/* moneyPouch */}
       <Grid item xs={4} key={'key'}>
-          <Item elevation={10}>
-            <>
-              <Typography color="text.secondary">
-                {'Gold'.toLocaleUpperCase()}
-              </Typography>
-              <Typography variant="h4" component="div" sx={{ display: 'flex', alignItems: 'center', justifyContent:'center' }}>
-                {character.moneyPouch}
-              </Typography>
-            </>
-          </Item>
+        <Item elevation={10}>
+          <>
+            <Typography color="text.secondary">
+              {'Gold'.toLocaleUpperCase()}
+            </Typography>
+            <Typography variant="h4" component="div" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {character.moneyPouch}
+            </Typography>
+          </>
+        </Item>
       </Grid>
-  </Grid>
+    </Grid>
   );
 }
 
 // stat calcuations
 function calculateStats(character) {
-  const {equipment} = character;
+  const { equipment } = character;
   const stats = {
     armour: 0,
     speed: 0,
     magic: 0,
-    brawn:0,
+    brawn: 0,
     health: character.stats.health
   }
   // Convert object values to an array
   const valuesArray = Object.values(equipment);
 
   const totals = valuesArray.reduce((accumulator, currentItem) => {
-    const {armour, speed, magic, brawn} = currentItem;
+    const { armour, speed, magic, brawn } = currentItem;
     stats.armour = stats.armour + armour;
     stats.speed = stats.speed + speed
     stats.magic = stats.magic + magic
@@ -271,10 +271,10 @@ function calculateStats(character) {
 }
 
 function calculateSpecialAbilities(character) {
-  const {equipment} = character;
+  const { equipment } = character;
   const valuesArray = Object.values(equipment);
   const abilities = valuesArray.reduce((accumulator, character) => {
-    if(character.specialAbility) {
+    if (character.specialAbility) {
       accumulator.push(character.specialAbility);
     }
     return accumulator

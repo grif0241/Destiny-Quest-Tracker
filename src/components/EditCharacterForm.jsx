@@ -108,7 +108,7 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
             >
               <MenuItem value="villager">Villager</MenuItem>
               <MenuItem value="mage">Mage</MenuItem>
-              <MenuItem value="rogue">Archer</MenuItem>
+              <MenuItem value="archer">Archer</MenuItem>
               <MenuItem value="warrior">Warrior</MenuItem>
             </Select>
           </FormControl>

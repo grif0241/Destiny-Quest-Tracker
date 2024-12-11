@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import villager from '../assets/icons/villager.png';
 import archer from '../assets/icons/archer.png';
 import mage from '../assets/icons/mage.png';
-import battle from '../assets/icons/battle.png';
 import warrior from '../assets/icons/warrior.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { CharactersContext, CharactersDispatchContext } from '../contexts/CharactersContext';
@@ -14,7 +13,6 @@ import { capitalizeString } from '../util';
 export default function CharacterCard({ character }) {
   const navigate = useNavigate();
 
-  // TODO clean
   const characterImages = {
     villager,
     archer,
@@ -74,7 +72,6 @@ export default function CharacterCard({ character }) {
             type: 'deleted',
             character
           })
-          // handleNavigate()
         }
       } >Delete</button>
     </Card>
