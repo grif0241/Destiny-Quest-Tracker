@@ -1,7 +1,7 @@
 // this actually works
 import PWABadge from './PWABadge.jsx';
 import { Container, Box } from '@mui/material';
-import { Route, Routes, Link, Navigate } from 'react-router-dom';
+import { Route, Router, Routes, Link, Navigate } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav.jsx';
 import Characters from './pages/Characters.jsx';
@@ -24,32 +24,34 @@ function App() {
   return (
     <CharactersProvider>
       {/* app container */}
-      <Box
-        sx={{ 
-          margin: '0 auto',
-          paddingBottom:5,          
-          width: '100%', 
-          maxWidth: { xs: '100%', sm: '100%', md: '100%', lg: 1200 },
-          // marginTop: { lg:'10vh'},
-          // border: '2px solid black', // TODO: remove after
-        }}
-      >
-        {/* <Nav /> */}
-        <div>
-          <Routes>
-            <Route path="/" element={<Navigate to="/characters" replace />} />
-            <Route exact path="/characters" element={<Characters />} />
-            <Route path="/characters/:id" element={<CharacterDetail />} />
-            <Route path="/characters/:id/edit" element={<EditCharacterDetail />} />
-            <Route path="/items" element={<Items />} />
-            <Route path="/abilities" element={<Abilities />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/credits" element={<Credits />} />
-            <Route element={NotFound} />
-          </Routes>
-        </div>
-        <PWABadge />
-      </Box>
+      <Router basename="/Destiny-Quest-Tracker">
+        <Box
+          sx={{
+            margin: '0 auto',
+            paddingBottom: 5,
+            width: '100%',
+            maxWidth: { xs: '100%', sm: '100%', md: '100%', lg: 1200 },
+            // marginTop: { lg:'10vh'},
+            // border: '2px solid black', // TODO: remove after
+          }}
+        >
+          {/* <Nav /> */}
+          <div>
+            <Routes>
+              <Route path="/" element={<Navigate to="/characters" replace />} />
+              <Route exact path="/characters" element={<Characters />} />
+              <Route path="/characters/:id" element={<CharacterDetail />} />
+              <Route path="/characters/:id/edit" element={<EditCharacterDetail />} />
+              <Route path="/items" element={<Items />} />
+              <Route path="/abilities" element={<Abilities />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/credits" element={<Credits />} />
+              <Route element={NotFound} />
+            </Routes>
+          </div>
+          <PWABadge />
+        </Box>
+      </Router>
     </CharactersProvider>
   )
 }
