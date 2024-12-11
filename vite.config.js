@@ -2,7 +2,6 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import icons from './icons.json';
-// console.log(icons.icons);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -19,8 +18,8 @@ export default defineConfig({
       theme_color: '#ffffff',
       icons: icons.icons,
       display: 'standalone',
-      scope: '/', // Ensure the scope is set to root as well
-      start_url: '/', // Add this line
+      scope: '/Destiny-Quest-Tracker/',
+      start_url: '/Destiny-Quest-Tracker/',
     },
 
     workbox: {
@@ -34,18 +33,17 @@ export default defineConfig({
           options: {
             cacheName: 'fonts-cache',
             expiration: {
-              maxEntries: 30, // Adjust based on your needs
+              maxEntries: 30,
               maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
             },
           },
         },
-        // Other caching rules can be added here
       ],
     },
 
     devOptions: {
       enabled: false,
-      navigateFallback: 'index.html',
+      navigateFallback: '/Destiny-Quest-Tracker/index.html',
       suppressWarnings: true,
       type: 'module',
     },
