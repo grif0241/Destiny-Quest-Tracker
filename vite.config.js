@@ -6,6 +6,7 @@ import icons from './icons.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/Destiny-Quest-Tracker/',  // This will prefix all asset paths
   plugins: [react(), VitePWA({
     registerType: 'prompt',
     injectRegister: 'auto',
