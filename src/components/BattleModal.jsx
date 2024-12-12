@@ -34,15 +34,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function BattleModal({specialAbilities, calculateStats, character, open, handleClose}) {
+export default function BattleModal({ specialAbilities, calculateStats, character, open, handleClose }) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const stats = calculateStats(character);
-  console.log(specialAbilities);
-
-  const {abilities} = resources.legionOfShadow;  
-  console.log(abilities)
-
+  const { abilities } = resources.legionOfShadow;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedAbility, setSelectedAbility] = React.useState(null);
 
@@ -62,7 +58,7 @@ export default function BattleModal({specialAbilities, calculateStats, character
 
   return (
     <React.Fragment>
-      
+
       <Dialog
         fullWidth={true}
         maxWidth={'lg'}
@@ -87,14 +83,13 @@ export default function BattleModal({specialAbilities, calculateStats, character
           </Toolbar>
         </AppBar>
         <Container
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              // justifyContent: 'center',
-              alignItems: 'center',
-              height: '100vh',
-              backgroundColor: 'lightSteelBlue'
-            }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            height: '100vh',
+            backgroundColor: 'lightSteelBlue'
+          }}
         >
           <span>
             <h2>{character.name} stats</h2>
@@ -105,33 +100,32 @@ export default function BattleModal({specialAbilities, calculateStats, character
           </span>
 
           <span>
-          <ul>
-            {specialAbilities.map((ability) => (
-              <div key={ability} style={{ margin: '10px' }}>
-                <Button aria-describedby={id} variant="contained" onClick={(event) => handleClick(event, ability)}>
-                  {ability.toLowerCase()}
-                </Button>
-                <Popover
-                  id={id}
-                  open={open && selectedAbility === ability}
-                  // anchorEl={anchorEl}
-                  onClose={handlePopoverClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                >
-                  <Typography sx={{ p: 2 }}>
-                    {
-                      abilities
-                        .filter((ab) => ab.name?.toLowerCase() === ability?.toLowerCase())
-                        .map((ab) => <p key={ab.name}>{ab.description}</p>)
-                    }
-                  </Typography>
-                </Popover>
-          <input type="checkbox" name={ability} id={ability} />
-        </div>
-      ))}
+            <ul>
+              {specialAbilities.map((ability) => (
+                <div key={ability} style={{ margin: '10px' }}>
+                  <Button aria-describedby={id} variant="contained" onClick={(event) => handleClick(event, ability)}>
+                    {ability.toLowerCase()}
+                  </Button>
+                  <Popover
+                    id={id}
+                    open={open && selectedAbility === ability}
+                    onClose={handlePopoverClose}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'left',
+                    }}
+                  >
+                    <Typography sx={{ p: 2 }}>
+                      {
+                        abilities
+                          .filter((ab) => ab.name?.toLowerCase() === ability?.toLowerCase())
+                          .map((ab) => <p key={ab.name}>{ab.description}</p>)
+                      }
+                    </Typography>
+                  </Popover>
+                  <input type="checkbox" name={ability} id={ability} />
+                </div>
+              ))}
             </ul>
           </span>
           <Grid container spacing={2} justifyContent="center" alignItems="center">
@@ -192,32 +186,34 @@ function FlexboxGapStack() {
       <Stack spacing={{ xs: 1, sm: 2 }} direction="row" useFlexGap flexWrap="wrap">
         <Item
           sx={{
-            backgroundColor:'lightYellow'
-          }}  
+            backgroundColor: 'lightYellow'
+          }}
         >
           <Button onClick={handleSpeedRoll}>Roll Speed</Button>
-          <img 
-            src={diceCube} 
-            style={{           
+          <img
+            src={diceCube}
+            style={{
               width: '25px',
               height: '25px',
-              borderRadius: '50%',}} 
-            alt="" 
+              borderRadius: '50%',
+            }}
+            alt=""
           />
         </Item>
         <Item
           sx={{
-            backgroundColor:'lavenderblush'
-          }} 
+            backgroundColor: 'lavenderblush'
+          }}
         >
           <Button onClick={handleDamageRoll}>Roll Damage</Button>
-          <img 
-            src={diceCubeOutline} 
-            style={{           
+          <img
+            src={diceCubeOutline}
+            style={{
               width: '25px',
               height: '25px',
-              borderRadius: '50%',}} 
-            alt="" 
+              borderRadius: '50%',
+            }}
+            alt=""
           />
         </Item>
         <Item>

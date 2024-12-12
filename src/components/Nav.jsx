@@ -13,15 +13,15 @@ import EditCharacterModal from './EditCharacterModal';
 import resources from '../assets/destiny-quest-resources.json';
 
 export default function ButtonAppBar() {
-  const {id} = useParams();
+  const { id } = useParams();
   const characters = React.useContext(CharactersContext);
   const character = characters.find((char) => char.id === id);
   let items = null;
-  let careers = null; 
-  let paths = null; 
-  
+  let careers = null;
+  let paths = null;
+
   const location = useLocation();
-  const {pathname} = location;
+  const { pathname } = location;
 
   if (character) {
     const { book } = character;
@@ -51,7 +51,7 @@ export default function ButtonAppBar() {
   const handleCloseEdit = () => {
     setEditOpen(false);
   };
-  
+
   const getCurrentPageName = () => {
     let page = null;
 
@@ -60,7 +60,7 @@ export default function ButtonAppBar() {
 
     if (characterDetailEditPattern.test(pathname)) {
       page = `EDIT`;
-    } else if(characterDetailPattern.test(pathname)) {
+    } else if (characterDetailPattern.test(pathname)) {
       page = `CHARACTER`;
     } else {
       page = pathname.split('/')[1].toLocaleUpperCase();
@@ -86,24 +86,23 @@ export default function ButtonAppBar() {
           {page}
         </Typography>
         {/* create btn */}
-        { page === "CHARACTERS" ? <Button onClick={handleClickOpen} color="inherit">Create</Button> : null }
+        {page === "CHARACTERS" ? <Button onClick={handleClickOpen} color="inherit">Create</Button> : null}
 
         {/* edit btn */}
-        { page === "CHARACTER" ? <Button onClick={handleClickOpenEdit} color="inherit">Edit</Button> : null }
-          
+        {page === "CHARACTER" ? <Button onClick={handleClickOpenEdit} color="inherit">Edit</Button> : null}
+
       </Toolbar>
-        <CreateCharacterModal open={open} handleClose={handleClose} />
-        <EditCharacterModal careers={careers} paths={paths} items={items} character={character} open={editOpen} handleClose={handleCloseEdit} />
+      <CreateCharacterModal open={open} handleClose={handleClose} />
+      <EditCharacterModal careers={careers} paths={paths} items={items} character={character} open={editOpen} handleClose={handleCloseEdit} />
     </AppBar>
   );
 }
 
 function getBookItems(book, data) {
   let items = null;
-  switch(book) {
+  switch (book) {
     case "Legion of Shadow":
       items = data?.legionOfShadow.items;
-      console.log(items);
       return items;
     default:
       items = ['bnope'];
@@ -113,10 +112,9 @@ function getBookItems(book, data) {
 
 function getCareers(book, data) {
   let careers = null;
-  switch(book) {
+  switch (book) {
     case "Legion of Shadow":
       careers = data?.legionOfShadow.careers;
-      console.log(careers);
       return careers;
     default:
       careers = ['bnope'];
@@ -126,10 +124,9 @@ function getCareers(book, data) {
 
 function getPaths(book, data) {
   let paths = null;
-  switch(book) {
+  switch (book) {
     case "Legion of Shadow":
       paths = data?.legionOfShadow.paths;
-      console.log(paths);
       return paths;
     default:
       paths = ['bnope'];

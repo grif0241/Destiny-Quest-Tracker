@@ -12,7 +12,7 @@ export default function ItemComboBox({ handleQuery }) {
       disablePortal
       id="combo-box-demo"
       options={allItems}
-      getOptionLabel={(option) => option.name} // Define which property to use as the label
+      getOptionLabel={(option) => option.name}
       sx={{ width: "100%" }}
       renderInput={(params) => <TextField {...params} name="Item" label="Item" />}
       onChange={(event, value) => {

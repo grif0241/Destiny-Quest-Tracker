@@ -41,7 +41,6 @@ export default function CharacterCard({ character }) {
   return (
     <Card
       sx={{ backgroundColor: 'lightGreen', marginBottom: 2, paddingX: 5, minWidth: 275, display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center' }}
-      onClick={() => console.log('open character dialogue')}
     >
       <img
         width="50px"

@@ -1,29 +1,26 @@
 import React, { useState, useContext } from 'react';
 import { TextField, Button, MenuItem, Select, InputLabel, FormControl, Box, Grid, Typography } from '@mui/material';
-import AbilityComboBox from './AbilityComboBox';
-import ItemComboBox from './ItemComboBox';
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 import Autocomplete from '@mui/material/Autocomplete';
+import { TextareaAutosize } from '@mui/material';
 import { CharactersContext, CharactersDispatchContext } from '../contexts/CharactersContext';
 import { Divider } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import FullScreenLoading from './FullScreenLoading';
 import { capitalizeString } from '../util';
 
 function EditCharacterForm({ careers, paths, items, handleClose }) {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const characters = useContext(CharactersContext);
   const character = characters.find((char) => char.id === id);
-  console.log(careers);
 
   const dispatch = React.useContext(CharactersDispatchContext);
   const { chest, cloak, feet, gloves, head, leftHand, mainHand, necklace, ring, talisman } = items;
-  const { career, path, name, moneyPouch, stats } = character;
+  const { career, path, name, moneyPouch, stats, notes, bag } = character;
   const [formData, setFormData] = useState(character);
   const [loading, setLoading] = useState(false);
-
-  console.log(formData);
 
   // equipment change handler - Autocomplete does not work with e.target the same way regular form elements do. The event provided by Autocomplete is different
   const handleEquipmentChange = (slot) => (event, newValue) => {
@@ -47,16 +44,13 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
     }));
   }
 
-  // use for regular text content?
   const handleChange = (e) => {
-    console.log(e.target.name)
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     setLoading(true);
-    console.log('Form Data:', formData);
     dispatch({
       type: 'edited',
       character: formData,
@@ -64,23 +58,30 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
 
     });
     setTimeout(() => {
-      // navigate(`/characters/${character.id}`);
       handleClose();
-
       setLoading(false);
     }, 200);
   };
+
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    width: '80%',
+    lineHeight: '60px',
+    padding: 10,
+  }));
 
   return (
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
+      sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%', height: '100%', marginTop: '30px' }}
     >
       {loading && (<FullScreenLoading />)}
 
       {/* personal */}
-      <Grid sx={{ marginTop: { xs: 12, md: 0 } }} container spacing={2}>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography>Personal</Typography>
         </Grid>
@@ -88,12 +89,11 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <TextField
             label="Name"
             name="name"
-            value={formData.name || name}
+            defaultValue={name}
             onChange={handleChange}
             variant="outlined"
             required
             fullWidth
-            defaultValue={name}
           />
         </Grid>
         <Grid item xs={6} sm={3}>
@@ -169,9 +169,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="head"
-            options={head} // Assuming items.head is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.head} // Default value
+            options={head}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.head}
             onChange={handleEquipmentChange('head')}
             renderInput={(params) => (
               <TextField {...params} label="Head" name="head" />
@@ -183,9 +183,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="cloak"
-            options={cloak} // Assuming items.cloak is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.cloak} // Default value
+            options={cloak}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.cloak}
             onChange={handleEquipmentChange('cloak')}
             renderInput={(params) => (
               <TextField {...params} label="Cloak" name="cloak" />
@@ -197,9 +197,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="gloves"
-            options={gloves} // Assuming items.gloves is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.gloves} // Default value
+            options={gloves}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.gloves}
             onChange={handleEquipmentChange('gloves')}
             renderInput={(params) => (
               <TextField {...params} label="Gloves" name="gloves" />
@@ -211,9 +211,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="mainHand"
-            options={mainHand} // Assuming items.mainHand is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.mainHand} // Default value
+            options={mainHand}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.mainHand}
             onChange={handleEquipmentChange('mainHand')}
             renderInput={(params) => (
               <TextField {...params} label="Main hand" name="mainHand" />
@@ -225,9 +225,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="chest"
-            options={chest} // Assuming items.chest is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.chest} // Default value
+            options={chest}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.chest}
             onChange={handleEquipmentChange('chest')}
             renderInput={(params) => (
               <TextField {...params} label="Chest" name="chest" />
@@ -239,9 +239,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="leftHand"
-            options={leftHand} // Assuming items.leftHand is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.leftHand} // Default value
+            options={leftHand} s
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.leftHand}
             onChange={handleEquipmentChange('leftHand')}
             renderInput={(params) => (
               <TextField {...params} label="Left hand" name="leftHand" />
@@ -253,9 +253,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="talisman"
-            options={talisman} // Assuming items.talisman is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.talisman} // Default value
+            options={talisman}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.talisman}
             onChange={handleEquipmentChange('talisman')}
             renderInput={(params) => (
               <TextField {...params} label="Talisman" name="talisman" />
@@ -267,9 +267,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="feet"
-            options={feet} // Assuming items.feet is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.feet} // Default value
+            options={feet}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.feet}
             onChange={handleEquipmentChange('feet')}
             renderInput={(params) => (
               <TextField {...params} label="Feet" name="feet" />
@@ -281,9 +281,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="necklace"
-            options={necklace} // Assuming items.necklace is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.necklace} // Default value
+            options={necklace}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.necklace}
             onChange={handleEquipmentChange('necklace')}
             renderInput={(params) => (
               <TextField {...params} label="Necklace" name="necklace" />
@@ -295,9 +295,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="ring1"
-            options={ring} // Assuming items.ring is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.ring1} // Default value
+            options={ring}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.ring1}
             onChange={handleEquipmentChange('ring1')}
             renderInput={(params) => (
               <TextField {...params} label="Ring 1" name="ring1" />
@@ -309,9 +309,9 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
           <Autocomplete
             disablePortal
             id="ring2"
-            options={ring} // Assuming items.ring is an array of options
-            getOptionLabel={(option) => option.name} // Display the name of each option
-            value={formData.equipment.ring2} // Default value
+            options={ring}
+            getOptionLabel={(option) => option.name}
+            value={formData.equipment.ring2}
             onChange={handleEquipmentChange('ring2')}
             renderInput={(params) => (
               <TextField {...params} label="Ring 2" name="ring2" />
@@ -326,13 +326,54 @@ function EditCharacterForm({ careers, paths, items, handleClose }) {
       <Grid sx={{ marginTop: 0 }} container spacing={2}>
         <Grid item xs={12}>
           <Typography>Backpack</Typography>
+          <Box sx={{ maxWidth: '600px', width: '100%' }}>
+            <TextareaAutosize
+              defaultValue={bag}
+              name="bag"
+              onChange={handleChange}
+              style={{
+                width: '100%',
+                boxSizing: 'border-box',
+                padding: '8px',
+                fontSize: '16px',
+              }}
+              aria-label="minimum height"
+              minRows={5}
+              maxRows={10}
+              placeholder="Note backpack items here"
+            />
+          </Box>
         </Grid>
       </Grid>
       <Divider />
 
+      {/* notes */}
+      <Grid sx={{ marginTop: 0 }} container spacing={2}>
+        <Grid item xs={12}>
+          <Typography>Notes</Typography>
+          <Box sx={{ maxWidth: '600px', width: '100%' }}>
+            <TextareaAutosize
+              defaultValue={notes}
+              name="notes"
+              onChange={handleChange}
+              style={{
+                width: '100%',
+                boxSizing: 'border-box',
+                padding: '8px',
+                fontSize: '16px',
+              }}
+              aria-label="minimum height"
+              minRows={5}
+              placeholder="Scribble notes here"
+            />
+          </Box>
+        </Grid>
+      </Grid>
+      <Divider />
       <Button type="submit" variant="contained" color="primary">
         Save
       </Button>
+      <Divider />
     </Box>
   );
 }

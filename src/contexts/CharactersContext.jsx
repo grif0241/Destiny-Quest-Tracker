@@ -22,7 +22,7 @@ export function CharactersProvider({ children }) {
     // custom component that provides characters and the dispatch function to its children
     <CharactersContext.Provider value={characters}>
       <CharactersDispatchContext.Provider value={dispatch} >
-        { children }
+        {children}
       </CharactersDispatchContext.Provider>
     </CharactersContext.Provider>
   )
@@ -35,14 +35,12 @@ function charactersReducer(characters, action) {
       return [...characters, character]
     }
     case 'edited': {
-      console.log('edit char dispatch');
       const { character: updatedCharacter, id } = action;
 
       // Update the character with the specified id
       const x = characters.map(char =>
         char.id === id ? { ...char, ...updatedCharacter } : char
       );
-      console.log(x);
       return x;
     }
     case 'deleted': {

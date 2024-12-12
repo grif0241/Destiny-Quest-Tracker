@@ -7,22 +7,21 @@ import { CharactersContext, CharactersDispatchContext } from '../contexts/Charac
 import EditCharacterForm from '../components/EditCharacterForm';
 
 export default function EditCharacterDetail() {
-  const {id} = useParams();
+  const { id } = useParams();
   const characters = React.useContext(CharactersContext);
   const character = characters.find((char) => char.id === id);
   const [query, setQuery] = React.useState('');
-  const {book} = character;
+  const { book } = character;
   const items = getBookItems(book, resources);
-  console.log(resources);
 
   return (
     // page container
     <>
       <Nav />
       <Container
-        sx={{ 
-          marginTop:4,
-          paddingX: {xs: '16px', md: 0}
+        sx={{
+          marginTop: 4,
+          paddingX: { xs: '16px', md: 0 }
         }}
       >
         <EditCharacterForm character={character} items={items} />
@@ -33,10 +32,9 @@ export default function EditCharacterDetail() {
 
 function getBookItems(book, data) {
   let items = null;
-  switch(book) {
+  switch (book) {
     case "Legion of Shadow":
       items = data?.legionOfShadow.items;
-      console.log(items);
       return items;
     default:
       items = ['bnope'];

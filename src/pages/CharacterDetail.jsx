@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { CharactersContext } from '../contexts/CharactersContext';
 import Nav from '../components/Nav';
-import { Box } from '@mui/material';
+import { Accordion, Box } from '@mui/material';
 import resources from '../assets/destiny-quest-resources.json';
 import villager from '../assets/icons/villager.png';
 import mage from '../assets/icons/mage.png';
@@ -13,6 +13,7 @@ import warrior from '../assets/icons/warrior.png';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import ListItem from '@mui/material/ListItem';
+import { TextareaAutosize } from '@mui/material';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
@@ -23,7 +24,7 @@ export default function CharacterDetail() {
   const { id } = useParams();
   const characters = useContext(CharactersContext);
   const character = characters.find((char) => char.id === id);
-  const { path, career, name, stats, equipment, book, moneyPouch } = character;
+  const { path, career, name, stats, equipment, book, moneyPouch, notes, bag } = character;
 
   const specialAbilities = calculateSpecialAbilities(character);
   const [battleOpen, setBattleOpen] = React.useState(false);
@@ -36,7 +37,6 @@ export default function CharacterDetail() {
     setBattleOpen(false);
   };
 
-  // TODO clean
   const characterImages = {
     villager,
     archer,
@@ -57,7 +57,7 @@ export default function CharacterDetail() {
     }
   }
 
-  // Define the enum todo
+  // Define the enum
   const EquipmentSlot = {
     PASSIVE: 'pa',
     SPEED: 'sp',
@@ -72,19 +72,20 @@ export default function CharacterDetail() {
       <Box
         sx={{
           padding: 0,
-          minHeight: '100vh', // Ensures the Box takes at least the full viewport height
+          minHeight: '100vh',
           width: '100%',
-          background: 'linear-gradient(to bottom, #3f51b5 20%, transparent 95%)',
+          background: 'linear-gradient(to bottom, #3f51b5 55%, transparent 95%)',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          flexDirection: 'column', // Allow content to flow vertically
-          position: 'relative', // Ensure positioning context for the image
-          overflow: 'hidden', // Hide overflow if necessary
+          flexDirection: 'column',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
 
         <h1 style={{ color: 'white', }}>{name}, the {capitalizeString(path)}</h1>
+
         {/* dynamically render career */}
         {career && (<h2 style={{ color: 'white', }}>{capitalizeString(career)}</h2>)}
 
@@ -96,15 +97,15 @@ export default function CharacterDetail() {
           sx={{
             width: '200px',
             height: '200px',
-            backgroundColor: 'lightblue', // Change this to the desired background color
-            borderRadius: '50%', // Keep the image inside a circle
-            position: 'relative', // Ensure the image is positioned within the container
-            overflow: 'hidden', // Hide any overflow from the image
+            backgroundColor: 'lightblue',
+            borderRadius: '50%',
+            position: 'relative',
+            overflow: 'hidden',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             border: '10px solid black',
-            marginBottom: 3, // Add margin if needed
+            marginBottom: 3,
           }}
         >
           <img
@@ -115,7 +116,7 @@ export default function CharacterDetail() {
               height: '100%',
               borderRadius: '50%',
               objectFit: 'cover',
-              position: 'absolute', // Ensure it is centered inside the container
+              position: 'absolute',
             }}
           />
         </Box>
@@ -165,9 +166,6 @@ export default function CharacterDetail() {
                     <ListItem
                       key={value.name}
                       sx={{ borderBottom: '1px solid #ddd' }}
-                      onClick={() => {
-                        console.log(value);
-                      }}
                     >
                       <ListItemText
                         primary={value.name}
@@ -191,6 +189,47 @@ export default function CharacterDetail() {
             ))}
           </Box>
         </Item>
+        {/* backpack */}
+        <Item>
+          <Typography variant="h4" component="div" sx={{ textAlign: 'left' }}>
+            Backpack
+          </Typography>
+          <Box sx={{ maxWidth: '600px', width: '100%' }}>
+            <TextareaAutosize
+              disabled={true}
+              defaultValue={bag}
+              aria-label="minimum height" minRows={5} placeholder="Minimum 5 rows" maxRows={10}
+              name="notes"
+              style={{
+                width: '100%',
+                boxSizing: 'border-box',
+                padding: '8px',
+                fontSize: '16px',
+              }}
+            />
+
+          </Box>
+        </Item>
+        {/* notes */}
+        <Item>
+          <Typography variant="h4" component="div" sx={{ textAlign: 'left' }}>
+            Notes
+          </Typography>
+          <Box sx={{ maxWidth: '600px', width: '100%' }}>
+            <TextareaAutosize
+              disabled={true}
+              defaultValue={notes}
+              aria-label="minimum height" minRows={5} placeholder="Minimum 5 rows"
+              name="notes"
+              style={{
+                width: '100%',
+                boxSizing: 'border-box',
+                padding: '8px',
+                fontSize: '16px',
+              }}
+            />
+          </Box>
+        </Item>
       </Box>
     </>
   );
@@ -201,7 +240,6 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
   width: '80%',
-  // height: '100%',
   lineHeight: '60px',
   padding: 10,
 }));
@@ -209,8 +247,6 @@ const Item = styled(Paper)(({ theme }) => ({
 function Elevation({ character }) {
   const calculatedStats = calculateStats(character);
   const { stats } = character;
-  console.log(stats);
-  console.log(calculatedStats);
   return (
     <Grid container padding={6} spacing={2}>
       {Object?.entries(calculatedStats).map(([key, value]) => (

@@ -11,7 +11,7 @@ import { CharactersContext, CharactersDispatchContext } from '../contexts/Charac
 import { v4 as uuidv4 } from 'uuid';
 import { capitalizeString } from '../util';
 
-export default function CreateCharacterModal({open, handleClose}) {
+export default function CreateCharacterModal({ open, handleClose }) {
   const dispatch = React.useContext(CharactersDispatchContext);
 
   return (
@@ -25,13 +25,12 @@ export default function CreateCharacterModal({open, handleClose}) {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries(formData.entries());
-            const {name} = formJson;
+            const { name } = formJson;
             dispatch({
-              type:'created',
+              type: 'created',
               character: {
                 id: uuidv4(),
                 name: capitalizeString(name),
-                // tot calculate on front end...
                 stats: {
                   speed: 0,
                   brawn: 0,
@@ -39,9 +38,9 @@ export default function CreateCharacterModal({open, handleClose}) {
                   armor: 0,
                   health: 30
                 },
-                book:"Legion of Shadow",
+                book: "Legion of Shadow",
                 moneyPouch: 10,
-                path:'villager',
+                path: 'villager',
                 career: '',
                 specialAbilties: [],
                 backPack: [
@@ -67,118 +66,119 @@ export default function CreateCharacterModal({open, handleClose}) {
                   },
                 ],
                 equipment: {
-                  cloak:{
-                    name:'',
+                  cloak: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  head:{
-                    name:'',
+                  head: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  gloves:{
-                    name:'',
+                  gloves: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  mainHand:{
-                    name:'',
+                  mainHand: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  chest:{
-                    name:'',
+                  chest: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  leftHand:{
-                    name:'',
+                  leftHand: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  talisman:{
-                    name:'',
+                  talisman: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  feet:{
-                    name:'',
+                  feet: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  necklace:{
-                    name:'',
+                  necklace: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  ring1:{
-                    name:'',
+                  ring1: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
-                  ring2:{
-                    name:'',
+                  ring2: {
+                    name: '',
                     speed: 0,
                     brawn: 0,
                     magic: 0,
                     armour: 0,
                     specialAbility: '',
-                    entryNo:0,
-                    locationEnemy:'',
+                    entryNo: 0,
+                    locationEnemy: '',
                   },
                 },
-                notes: ""
+                notes: "",
+                bag: ""
               }
             })
 
@@ -193,7 +193,7 @@ export default function CreateCharacterModal({open, handleClose}) {
           </DialogContentText>
           <Divider sx={{ marginY: 2 }} />
           <DialogContentText>
-            Your character will start off with nothing but 10 gold crowns 
+            Your character will start off with nothing but 10 gold crowns
           </DialogContentText>
           <TextField
             autoFocus
